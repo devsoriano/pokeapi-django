@@ -1,14 +1,18 @@
 import requests
 from .models import Pokemon
 
-
 def fetch_pokemon_data():
-    # Eliminar todos los datos existentes en la tabla
+    # Eliminar todos los datos existentes en la tabla antes de agregar nuevos
     Pokemon.objects.all().delete()
 
     base_url = "https://pokeapi.co/api/v2/pokemon/"
-    for page in range(1, 3):  # Dos páginas (40 Pokémon)
-        response = requests.get(f"{base_url}?offset={(page - 1) * 20}&limit=20")
+    limit = 20  # Pokémon por página
+    total_pokemon = 150  # Número total de Pokémon que queremos procesar
+    pages = total_pokemon // limit  # Número de páginas
+
+    for page in range(pages):  # Procesar cada página
+        offset = page * limit
+        response = requests.get(f"{base_url}?offset={offset}&limit={limit}")
         if response.status_code == 200:
             data = response.json()
             for item in data['results']:
