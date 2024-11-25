@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from pokeapi.views import run_job, get_pokemons
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('run-job/', run_job, name='run_job'),
+    path('get-pokemons/', get_pokemons, name='get_pokemons'),
 ]
