@@ -7,6 +7,7 @@
     <list default="true" id="0ed007f0-53b5-45f7-8085-8db5d660d9f9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pokeapi/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/pokeapi/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +91,7 @@
       <updated>1732554593644</updated>
       <workItem from="1732554602297" duration="4387000" />
       <workItem from="1732573359047" duration="1446000" />
-      <workItem from="1732577011222" duration="131000" />
+      <workItem from="1732577011222" duration="513000" />
     </task>
     <servers />
   </component>
