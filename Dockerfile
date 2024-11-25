@@ -20,5 +20,9 @@ COPY . .
 # Expone el puerto 8000 para Django
 EXPOSE 8000
 
-# Comando por defecto para iniciar el servidor Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Añade un script de shell para ejecutar las migraciones y luego iniciar el servidor
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Usa el script como comando de inicio
+CMD ["/entrypoint.sh"]
