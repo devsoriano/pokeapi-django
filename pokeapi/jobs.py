@@ -1,9 +1,10 @@
 import requests
-from .models import Pokemon
+from .models import Pokemon, Ability
 
 def fetch_pokemon_data():
-    # Eliminar todos los datos existentes en la tabla antes de agregar nuevos
+    # Eliminar todos los datos existentes en las tablas antes de agregar nuevos
     Pokemon.objects.all().delete()
+    Ability.objects.all().delete()
 
     base_url = "https://pokeapi.co/api/v2/pokemon/"
     limit = 20  # Pokémon por página
@@ -24,6 +25,22 @@ def fetch_pokemon_data():
 
                 # Extraer habilidades
                 abilities = [a['ability']['name'] for a in pokemon_detail['abilities']]
+
+                # Extraer descripciones de habilidades y guardarlas
+                for ability_name in abilities:
+                    if not Ability.objects.filter(name=ability_name).exists():
+                        ability_detail = requests.get(f"https://pokeapi.co/api/v2/ability/{ability_name}/").json()
+                        Ability.objects.create(
+                            name=ability_name,
+                            description=next(
+                                (entry['effect'] for entry in ability_detail['effect_entries'] if entry['language']['name'] == 'en'),
+                                "No description available"
+                            ),
+                            short_effect=next(
+                                (entry['short_effect'] for entry in ability_detail['effect_entries'] if entry['language']['name'] == 'en'),
+                                "No short description available"
+                            ),
+                        )
 
                 # Extraer imágenes (sin incluir las de 'other')
                 sprites = pokemon_detail['sprites']
