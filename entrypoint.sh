@@ -15,6 +15,17 @@ python manage.py makemigrations
 echo "Ejecutando migrate..."
 python manage.py migrate
 
+# Crear superusuario si no existe
+echo "Creando superusuario..."
+python manage.py shell <<EOF
+from django.contrib.auth.models import User
+if not User.objects.filter(username='admin').exists():
+    User.objects.create_superuser('admin', 'admin@example.com', 'Un1Tip5?¿xl')
+    print("Superusuario 'admin' creado con éxito.")
+else:
+    print("El superusuario 'admin' ya existe.")
+EOF
+
 # Iniciar el servidor
 echo "Iniciando el servidor de Django..."
 exec python manage.py runserver 0.0.0.0:8000
