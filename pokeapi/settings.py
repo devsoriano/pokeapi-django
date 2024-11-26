@@ -95,7 +95,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # React App local
     "http://18.208.163.231",  # Dominio en producción
     "http://pokeapi-react-bucket.s3-website-us-east-1.amazonaws.com", # Dominio AWS
-    "https://d1z6mn6zxzxr2c.cloudfront.net", # Cloudfront
+    "https://d1z6mn6zxzxr2c.cloudfront.net", # Cloudfront https
+    "http://d1z6mn6zxzxr2c.cloudfront.net",  # Cloudfront http
 ]
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 CORS_ALLOW_HEADERS = ["content-type", "authorization"]
