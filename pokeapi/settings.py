@@ -88,13 +88,15 @@ CACHES = {
 }
 
 # CORS Configuración
-CORS_ALLOW_ALL_ORIGINS = True  # Permitir todos los orígenes (solo para desarrollo)
+# CORS_ALLOW_ALL_ORIGINS = True  # Permitir todos los orígenes (solo para desarrollo)
 
 # Si necesitas restringirlo en producción:
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",  # React App local
-#     "http://18.208.163.231",  # Dominio en producción
-# ]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React App local
+    "http://18.208.163.231",  # Dominio en producción
+]
+CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+CORS_ALLOW_HEADERS = ["content-type", "authorization"]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
