@@ -15,12 +15,20 @@ python manage.py makemigrations
 echo "Ejecutando migrate..."
 python manage.py migrate
 
+# Ejecutar el job de fetch_pokemon_data
+echo "Ejecutando el job fetch_pokemon_data..."
+python manage.py shell <<EOF
+from pokeapi.jobs import fetch_pokemon_data
+fetch_pokemon_data()
+print("Datos de Pokémon cargados correctamente.")
+EOF
+
 # Crear superusuario si no existe
 echo "Creando superusuario..."
 python manage.py shell <<EOF
 from django.contrib.auth.models import User
 if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin', 'admin@example.com', 'Un1Tip5?¿xl')
+    User.objects.create_superuser('admin', 'rafael.soriano@arteenarte.com', 'Un1Tip5?¿xl')
     print("Superusuario 'admin' creado con éxito.")
 else:
     print("El superusuario 'admin' ya existe.")
