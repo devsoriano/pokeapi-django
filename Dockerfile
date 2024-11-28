@@ -1,28 +1,33 @@
-# Usa una imagen base de Python
-FROM python:3.10-slim
+# Imagen base de Python
+FROM python:3.9-slim
 
-# Establece el directorio de trabajo
+# Directorio de trabajo
 WORKDIR /app
 
-# Instala dependencias del sistema, incluyendo netcat-openbsd, gcc y libpq-dev
-RUN apt-get update && apt-get install -y \
-    netcat-openbsd \
-    gcc \
-    libpq-dev && apt-get clean
+# Evitar interacción en la instalación de paquetes
+ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONPATH=/app
 
-# Copia y configura dependencias de Python
-COPY requirements.txt requirements.txt
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    postgresql-client \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar archivos de requerimientos e instalarlos
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el código del proyecto al contenedor
+# Copiar el código del proyecto
 COPY . .
 
-# Expone el puerto 8000 para Django
+# Dar permisos de ejecución al archivo start.sh
+RUN chmod +x ./start.sh
+
+# Exponer el puerto de Django
 EXPOSE 8000
 
-# Añade un script de shell para ejecutar las migraciones y luego iniciar el servidor
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-# Usa el script como comando de inicio
-CMD ["/entrypoint.sh"]
+# Comando principal
+CMD ["sh", "./start.sh"]
