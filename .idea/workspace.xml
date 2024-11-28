@@ -5,35 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ed007f0-53b5-45f7-8085-8db5d660d9f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/abilities/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/abilities/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/pokemons/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/pokemons/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/pokemons/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/celery_app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/start.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wsgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entrypoint.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/jobs.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/migrations/0002_ability.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/abilities/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pokeapi/wsgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/pokemons/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/pokemons/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/tasks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
