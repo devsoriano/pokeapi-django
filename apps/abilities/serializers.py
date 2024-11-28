@@ -4,4 +4,4 @@ from .models import Ability
 class AbilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Ability
-        fields = ['name', 'is_hidden']
+        fields = ['id', 'name', 'description', 'short_effect']
