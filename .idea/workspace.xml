@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0ed007f0-53b5-45f7-8085-8db5d660d9f9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/pokemons/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/pokemons/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/pokemons/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/pokemons/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/pokemons/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/pokemons/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/abilities/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/abilities/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/abilities/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/abilities/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/abilities/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/abilities/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
