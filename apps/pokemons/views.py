@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import Pokemon
 from .serializers import PokemonSerializer
 from .tasks import fetch_all_pokemons
+from .pagination import CustomPokemonPagination  # Importar el paginador personalizado
 
 
 class PokemonViewSet(viewsets.ModelViewSet):
@@ -13,6 +14,7 @@ class PokemonViewSet(viewsets.ModelViewSet):
     """
     queryset = Pokemon.objects.all()
     serializer_class = PokemonSerializer
+    pagination_class = CustomPokemonPagination  # Usar el paginador personalizado
 
 
 class FetchAllPokemonsJobView(APIView):
