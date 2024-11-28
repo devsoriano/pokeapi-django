@@ -34,6 +34,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Configuración de rutas
+ROOT_URLCONF = 'urls'  # Corregido: Apunta al archivo urls.py en la raíz
+
 # Configuración de plantillas
 TEMPLATES = [
     {
