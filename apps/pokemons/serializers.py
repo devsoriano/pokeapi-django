@@ -1,9 +1,12 @@
 from rest_framework import serializers
 from .models import Pokemon
-from apps.abilities.serializers import AbilitySerializer
+from apps.abilities.models import Ability
 
 class PokemonSerializer(serializers.ModelSerializer):
-    abilities = AbilitySerializer(many=True, read_only=True)  # Habilidades son de solo lectura
+    abilities = serializers.PrimaryKeyRelatedField(
+        many=True,  # Permitir múltiples relaciones
+        queryset=Ability.objects.all()  # Consultar todas las habilidades disponibles
+    )
 
     class Meta:
         model = Pokemon
