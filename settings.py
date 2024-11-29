@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Configuración básica
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
 # Aplicaciones instaladas
@@ -19,12 +20,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_celery_results',
+    'corsheaders',  # Añadido para manejar CORS
     'apps.pokemons',
     'apps.abilities',
 ]
 
 # Middleware
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -34,8 +37,49 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Configuración de CORS
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas las solicitudes en desarrollo
+    CORS_ALLOW_CREDENTIALS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000",  # Para desarrollo en frontend local
+        "https://your-frontend-domain.com",  # Dominio del frontend en producción
+    ]
+    CORS_ALLOW_CREDENTIALS = True
+
+# Encabezados y métodos permitidos
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'accept',
+    'origin',
+    'access-control-allow-origin',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'OPTIONS',
+    'PATCH',
+]
+
+# Configuración de HTTPS para producción
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    SECURE_SSL_REDIRECT = False
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+
 # Configuración de rutas
-ROOT_URLCONF = 'urls'  # Corregido: Apunta al archivo urls.py en la raíz
+ROOT_URLCONF = 'urls'
 
 # Configuración de plantillas
 TEMPLATES = [
