@@ -9,9 +9,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
 # Hosts permitidos
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-if not DEBUG:
-    ALLOWED_HOSTS += ['18.208.163.231']  # Añade la IP pública de tu servidor EC2
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '18.208.163.231',  # IP pública del servidor EC2
+]
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -41,15 +43,8 @@ MIDDLEWARE = [
 ]
 
 # Configuración de CORS
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas las solicitudes en desarrollo
-    CORS_ALLOW_CREDENTIALS = True
-else:
-    CORS_ALLOWED_ORIGINS = [
-        "http://localhost:3000",  # Para desarrollo en frontend local
-        "https://your-frontend-domain.com",  # Dominio del frontend en producción
-    ]
-    CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True  # Permitir todas las solicitudes
+CORS_ALLOW_CREDENTIALS = True
 
 # Encabezados y métodos permitidos para CORS
 CORS_ALLOW_HEADERS = [
@@ -70,16 +65,10 @@ CORS_ALLOW_METHODS = [
     'PATCH',
 ]
 
-# Configuración de HTTPS para producción
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-else:
-    SECURE_SSL_REDIRECT = False
-    CSRF_COOKIE_SECURE = False
-    SESSION_COOKIE_SECURE = False
+# Configuración de HTTPS (Deshabilitada para evitar errores)
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 # Configuración de rutas
 ROOT_URLCONF = 'urls'
