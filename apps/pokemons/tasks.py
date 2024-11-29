@@ -3,58 +3,65 @@ from celery import shared_task
 from .models import Pokemon
 from apps.abilities.models import Ability
 
-
 @shared_task
-def fetch_all_pokemons():
+def fetch_all_pokemons(start_page=1, end_page=2):
     """
-    Job que extrae información de los primeros 150 Pokémon desde la PokeAPI,
-    eliminando los datos existentes antes de poblar la base de datos.
+    Job que extrae información de Pokémon de un rango específico de páginas
+    desde la PokeAPI, y actualiza o inserta los datos según corresponda.
     """
     base_url = "https://pokeapi.co/api/v2/pokemon/"
     ability_base_url = "https://pokeapi.co/api/v2/ability/"
+    results_per_page = 20  # Por defecto, la PokeAPI devuelve 20 resultados por página.
 
-    # Eliminar todos los datos existentes en las tablas antes de agregar nuevos
-    Pokemon.objects.all().delete()
-    Ability.objects.all().delete()
-
-    for pokemon_id in range(1, 151):
+    for page in range(start_page, end_page + 1):
         try:
-            response = requests.get(f"{base_url}{pokemon_id}/")
+            # Calcular el rango de IDs en función de la página
+            offset = (page - 1) * results_per_page
+            response = requests.get(f"{base_url}?offset={offset}&limit={results_per_page}")
             response.raise_for_status()
 
             data = response.json()
 
-            # Procesar habilidades y poblar la tabla Ability
-            abilities = []
-            for ability_info in data["abilities"]:
-                ability_name = ability_info["ability"]["name"]
+            for pokemon_data in data["results"]:
+                pokemon_url = pokemon_data["url"]
+                pokemon_response = requests.get(pokemon_url)
+                pokemon_response.raise_for_status()
+                pokemon_detail = pokemon_response.json()
 
-                # Si la habilidad no existe, obtener la descripción de la API de habilidades
-                ability, created = Ability.objects.get_or_create(
-                    name=ability_name,
+                # Procesar habilidades y poblar la tabla Ability
+                abilities = []
+                for ability_info in pokemon_detail["abilities"]:
+                    ability_name = ability_info["ability"]["name"]
+
+                    # Obtener o crear la habilidad
+                    ability, _ = Ability.objects.get_or_create(
+                        name=ability_name,
+                        defaults={
+                            "description": get_ability_description(ability_base_url, ability_name),
+                            "short_effect": get_ability_short_effect(ability_base_url, ability_name),
+                        },
+                    )
+                    abilities.append(ability)
+
+                # Crear o actualizar Pokémon
+                pokemon, created = Pokemon.objects.update_or_create(
+                    name=pokemon_detail["name"],
                     defaults={
-                        "description": get_ability_description(ability_base_url, ability_name),
-                        "short_effect": get_ability_short_effect(ability_base_url, ability_name),
+                        "types": ",".join([t["type"]["name"] for t in pokemon_detail["types"]]),
+                        "weight": pokemon_detail["weight"],
+                        "image_front": pokemon_detail["sprites"].get("front_default", ""),
+                        "image_back": pokemon_detail["sprites"].get("back_default", ""),
                     },
                 )
-                abilities.append(ability)
 
-            # Crear o actualizar Pokémon
-            pokemon = Pokemon.objects.create(
-                name=data["name"],
-                types=",".join([t["type"]["name"] for t in data["types"]]),
-                weight=data["weight"],
-                image_front=data["sprites"].get("front_default", ""),
-                image_back=data["sprites"].get("back_default", ""),
-            )
-
-            # Relacionar habilidades con el Pokémon
-            pokemon.abilities.set(abilities)
+                # Relacionar habilidades con el Pokémon
+                pokemon.abilities.set(abilities)
 
         except requests.exceptions.RequestException as e:
-            print(f"Error al obtener el Pokémon con ID {pokemon_id}: {e}")
+            print(f"Error al obtener la página {page}: {e}")
         except Exception as e:
-            print(f"Error procesando el Pokémon con ID {pokemon_id}: {e}")
+            print(f"Error procesando datos en la página {page}: {e}")
+
 
 
 def get_ability_description(base_url, ability_name):
