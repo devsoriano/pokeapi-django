@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from datetime import timedelta  # Para configurar el tiempo de vida del token
 
 # Rutas base
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',  # Librería de JWT
     'django_celery_results',
     'corsheaders',  # Añadido para manejar CORS
     'apps.pokemons',
@@ -110,8 +112,21 @@ CELERY_TASK_SERIALIZER = 'json'
 
 # Configuración de Django REST Framework
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Autenticación JWT
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',  # Requiere autenticación por defecto
+    ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+}
+
+# Configuración de SimpleJWT
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Tiempo de vida del access token
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Tiempo de vida del refresh token
+    'AUTH_HEADER_TYPES': ('Bearer',),               # Prefijo del encabezado
 }
 
 # Internacionalización
