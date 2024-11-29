@@ -7,3 +7,4 @@ djangorestframework<4.0,>=3.12
 psycopg2-binary<3.0,>=2.9
 django-cors-headers<4.0,>=3.13
 djangorestframework-simplejwt<5.0,>=4.7
+drf-yasg<2.0,>=1.21

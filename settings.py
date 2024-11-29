@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',  # Librería de JWT
     'django_celery_results',
     'corsheaders',  # Añadido para manejar CORS
+    'drf_yasg',  # Para Swagger
     'apps.pokemons',
     'apps.abilities',
 ]
