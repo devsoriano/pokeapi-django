@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'corsheaders',  # Añadido para manejar CORS
     'drf_yasg',  # Para Swagger
+    'django_redis',  # Redis para caché
     'apps.pokemons',
     'apps.abilities',
 ]
@@ -110,6 +111,18 @@ CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379/0')
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
+
+# Configuración de caché con Redis
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",  # URL de Redis
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+        "TIMEOUT": 1800,  # Tiempo en segundos (30 minutos)
+    }
+}
 
 # Configuración de Django REST Framework
 REST_FRAMEWORK = {
