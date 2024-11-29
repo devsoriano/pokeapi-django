@@ -1,0 +1,266 @@
+{
+    "info": {
+        "name": "PokeAPI Testing",
+        "description": "Postman collection to test all CRUD and job endpoints for Pokemon and Abilities APIs.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Fetch All Pokemons Job",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+                "url": {
+                    "raw": "http://localhost:8000/api/pokemons/job/fetch-all/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "pokemons",
+                        "job",
+                        "fetch-all"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "List Pokemons",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/api/pokemons/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "pokemons"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Create Pokemon",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n                        \"name\": \"charmander\",\n                        \"types\": \"fire\",\n                        \"weight\": 85,\n                        \"abilities\": [1, 2],\n                        \"image_front\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png\",\n                        \"image_back\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/4.png\"\n                    }"
+                },
+                "url": {
+                    "raw": "http://localhost:8000/api/pokemons/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "pokemons"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Retrieve Pokemon",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/api/pokemons/1/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "pokemons",
+                        "1"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Pokemon",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n                        \"name\": \"charmeleon\",\n                        \"types\": \"fire\",\n                        \"weight\": 95,\n                        \"abilities\": [1],\n                        \"image_front\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png\",\n                        \"image_back\": \"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/5.png\"\n                    }"
+                },
+                "url": {
+                    "raw": "http://localhost:8000/api/pokemons/1/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "pokemons",
+                        "1"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Delete Pokemon",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/api/pokemons/1/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "pokemons",
+                        "1"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "List Abilities",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/api/abilities/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "abilities"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Create Ability",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n                        \"name\": \"overgrow\",\n                        \"description\": \"Boosts the power of grass-type moves.\",\n                        \"short_effect\": \"Grass-type moves are stronger.\"\n                    }"
+                },
+                "url": {
+                    "raw": "http://localhost:8000/api/abilities/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "abilities"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Retrieve Ability",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/api/abilities/1/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "abilities",
+                        "1"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Ability",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n                        \"name\": \"blaze\",\n                        \"description\": \"Boosts the power of fire-type moves.\",\n                        \"short_effect\": \"Fire-type moves are stronger.\"\n                    }"
+                },
+                "url": {
+                    "raw": "http://localhost:8000/api/abilities/1/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "abilities",
+                        "1"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Delete Ability",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8000/api/abilities/1/",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8000",
+                    "path": [
+                        "api",
+                        "abilities",
+                        "1"
+                    ]
+                }
+            }
+        }
+    ]
+}
