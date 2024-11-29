@@ -1,4 +1,4 @@
-import os
+from decouple import config
 from pathlib import Path
 from datetime import timedelta  # Para configurar el tiempo de vida del token
 
@@ -6,15 +6,11 @@ from datetime import timedelta  # Para configurar el tiempo de vida del token
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Configuración básica
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
-DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='default-secret-key')
+DEBUG = config('DJANGO_DEBUG', default='True') == 'True'
 
 # Hosts permitidos
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '18.208.163.231',  # IP pública del servidor EC2
-]
+ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -98,16 +94,16 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'pokeapi_db'),
-        'USER': os.getenv('POSTGRES_USER', 'pokeapi_user'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'pokeapi_password'),
-        'HOST': os.getenv('POSTGRES_HOST', 'db'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'NAME': config('POSTGRES_DB', default='pokeapi_db'),
+        'USER': config('POSTGRES_USER', default='pokeapi_user'),
+        'PASSWORD': config('POSTGRES_PASSWORD', default='pokeapi_password'),
+        'HOST': config('POSTGRES_HOST', default='db'),
+        'PORT': config('POSTGRES_PORT', default='5432'),
     }
 }
 
 # Configuración de Celery
-CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://redis:6379/0')
+CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://redis:6379/0')
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -116,7 +112,7 @@ CELERY_TASK_SERIALIZER = 'json'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379/1",  # URL de Redis
+        "LOCATION": config('REDIS_CACHE_LOCATION', default="redis://redis:6379/1"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
