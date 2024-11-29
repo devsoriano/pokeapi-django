@@ -42,13 +42,6 @@ Welcome to the **PokeAPI** project! 🌈 This app brings the exciting world of P
    docker-compose up --build
    ```
 
-3. Run migrations and collect static files:
-
-   ```bash
-   docker exec -it pokeapi-web-1 python manage.py migrate
-   docker exec -it pokeapi-web-1 python manage.py collectstatic
-   ```
-
 ---
 
 ## 🛠️ How to Use
@@ -63,6 +56,7 @@ Welcome to the **PokeAPI** project! 🌈 This app brings the exciting world of P
 | `/api/pokemons/{id}/`                  | `PUT`  | Update an existing Pokémon          |
 | `/api/pokemons/{id}/`                  | `DELETE`| Delete a Pokémon                   |
 | `/api/pokemons/job/fetch-all/`         | `POST` | Fetch the first 150 Pokémon from API|
+| `/swagger/`                            | `GET`  | View API documentation (Swagger UI) |
 
 ### 🌀 Fetching Pokémons
 
@@ -79,21 +73,55 @@ Welcome to the **PokeAPI** project! 🌈 This app brings the exciting world of P
 
 ```
 pokeapi/
-├── apps/
-│   ├── abilities/
-│   │   ├── models.py
-│   │   ├── serializers.py
-│   │   ├── views.py
-│   │   ├── tests.py
-│   ├── pokemons/
-│       ├── models.py
-│       ├── serializers.py
-│       ├── views.py
-│       ├── tasks.py
-├── templates/
-├── static/
-├── manage.py
+├── Dockerfile
+├── Postman-Collection.json
+├── README.md
+├── __init__.py
+├── __pycache__
+├── apps
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-39.pyc
+│   ├── abilities
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── migrations
+│   │   ├── models.py
+│   │   ├── permissions.py
+│   │   ├── serializers.py
+│   │   ├── tasks.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   └── pokemons
+│       ├── __init__.py
+│       ├── __pycache__
+│       ├── admin.py
+│       ├── apps.py
+│       ├── migrations
+│       ├── models.py
+│       ├── pagination.py
+│       ├── permissions.py
+│       ├── serializers.py
+│       ├── tasks.py
+│       ├── tests.py
+│       ├── urls.py
+│       └── views.py
+├── celery_app.py
+├── celerybeat-schedule
+├── db.sqlite3
 ├── docker-compose.yml
+├── manage.py
+├── requirements.txt
+├── settings.py
+├── start.sh
+├── static
+├── templates
+├── urls.py
+└── wsgi.py
+
 ```
 
 ---
