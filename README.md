@@ -1,72 +1,113 @@
-# Pokémon API Project
 
-Este proyecto proporciona una API para gestionar y consumir datos relacionados con Pokémon, incluyendo detalles como habilidades, tipos, peso y más.
+# 🎮 PokeAPI Django REST Framework 🌟
 
-## Características
+![Django REST Framework](https://img.shields.io/badge/Django%20REST%20Framework-3.14-green?style=flat-square&logo=django)
+![Python](https://img.shields.io/badge/Python-3.9-blue?style=flat-square&logo=python)
+![Docker](https://img.shields.io/badge/Docker-✓-0db7ed?style=flat-square&logo=docker)
 
-- **Gestión de Pokémon**: Incluye un `job` que obtiene datos de Pokémon desde la [PokeAPI](https://pokeapi.co/).
-- **Habilidades**: Guarda información única sobre las habilidades de los Pokémon, incluyendo descripciones.
-- **Paginación**: La API permite obtener datos paginados para mejorar la experiencia del usuario.
-- **Caché**: Optimización de rendimiento mediante almacenamiento en caché.
+Welcome to the **PokeAPI** project! 🌈 This app brings the exciting world of Pokémon into your hands by leveraging Django REST Framework and Celery to build a scalable and interactive RESTful API.
 
 ---
 
-## Tecnologías utilizadas
+## 🌟 Features
 
-- **Backend**: Django
-- **Base de datos**: PostgreSQL
-- **Caché**: Django Cache (LocMemCache o Redis, según configuración)
-- **Docker**: Contenedores para el despliegue
-- **Frontend**: Vite + React (separado)
+- 🐾 **Pokemon Management**: CRUD operations for Pokémons and their abilities.
+- 🌀 **Fetch Them All**: Automatically fetch the first 150 Pokémon directly from PokeAPI with just a POST request.
+- 📄 **Pagination**: Browse Pokémons in pages (20 per page).
+- 📊 **Dockerized**: Easily deployable with Docker.
 
 ---
 
-## Instalación y configuración
+## 📜 Table of Contents
 
-### Requisitos previos
+- [🚀 Installation](#-installation)
+- [🛠️ How to Use](#️-how-to-use)
+- [📂 Project Structure](#-project-structure)
+- [👨‍💻 Testing](#-testing)
 
-- Docker y Docker Compose instalados en tu sistema.
-- Python 3.10 o superior.
+---
 
-### Clonar el repositorio
+## 🚀 Installation
 
-```bash
-git clone https://github.com/devsoriano/pokeapi-django.git
+1. Clone the repo and navigate into the project folder:
+
+   ```bash
+   git clone https://github.com/devsoriano/pokeapi-django.git
+   cd pokeapi-django
+   ```
+
+2. Spin up the Docker containers:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Run migrations and collect static files:
+
+   ```bash
+   docker exec -it pokeapi-web-1 python manage.py migrate
+   docker exec -it pokeapi-web-1 python manage.py collectstatic
+   ```
+
+---
+
+## 🛠️ How to Use
+
+### 🔗 API Endpoints
+
+| Endpoint                               | Method | Description                         |
+|----------------------------------------|--------|-------------------------------------|
+| `/api/pokemons/`                       | `GET`  | List all Pokémons                  |
+| `/api/pokemons/{id}/`                  | `GET`  | Retrieve a specific Pokémon         |
+| `/api/pokemons/`                       | `POST` | Create a new Pokémon                |
+| `/api/pokemons/{id}/`                  | `PUT`  | Update an existing Pokémon          |
+| `/api/pokemons/{id}/`                  | `DELETE`| Delete a Pokémon                   |
+| `/api/pokemons/job/fetch-all/`         | `POST` | Fetch the first 150 Pokémon from API|
+
+### 🌀 Fetching Pokémons
+
+1. Open Postman or any REST client.
+2. Send a `POST` request to:
+   ```
+   http://localhost:8000/api/pokemons/job/fetch-all/
+   ```
+3. Watch the magic happen!
+
+---
+
+## 📂 Project Structure
+
+```
+pokeapi/
+├── apps/
+│   ├── abilities/
+│   │   ├── models.py
+│   │   ├── serializers.py
+│   │   ├── views.py
+│   │   ├── tests.py
+│   ├── pokemons/
+│       ├── models.py
+│       ├── serializers.py
+│       ├── views.py
+│       ├── tasks.py
+├── templates/
+├── static/
+├── manage.py
+├── docker-compose.yml
 ```
 
-### Correr el proyecto
+---
+
+## 👨‍💻 Testing
+
+Run all unit tests:
 
 ```bash
- docker-compose up --build
+docker exec -it pokeapi-web-1 python manage.py test
 ```
 
-### Probar los servicios en localhost 
-- [Job para poblar datos (Local)](http://localhost:8000/run-job/)
-  <img width="998" alt="image" src="https://github.com/user-attachments/assets/a17400d9-f759-40fc-b643-92d4c29edd16">
+---
 
-- [Consultar Pokemons (Local)](http://localhost:8000/get-pokemons/?page=1)
-  <img width="998" alt="image" src="https://github.com/user-attachments/assets/a0d66020-8170-42e8-b08a-f7377127c307">
+## 📧 Contact
 
-- [Catálogo de habilidades (Local)](http://localhost:8000/get-abilities/)
-  <img width="998" alt="image" src="https://github.com/user-attachments/assets/61f88ad8-01e2-465d-b542-e55aa56661c4">
-
-### Probar los servicios productivos (AWS)
-- [Job para poblar datos (Producción)](http://18.208.163.231:8000/run-job/)
-  <img width="998" alt="image" src="https://github.com/user-attachments/assets/748de65b-79ea-4f4c-8da6-24d40b53304c">
-
-- [Consultar Pokemons (Producción)](http://18.208.163.231:8000/get-pokemons/?page=1)
-  <img width="998" alt="image" src="https://github.com/user-attachments/assets/b33f5975-98aa-430e-ab75-bf806f13456a">
-
-
-- [Catálogo de habilidades (Producción)](http://18.208.163.231:8000/get-abilities/)
-  <img width="998" alt="image" src="https://github.com/user-attachments/assets/24db3605-c9fc-48ab-8fda-9318bb8d0fc1">
-
-
-### Mejoras por hacer
-
-- Realizar un caché en Redis
-- Variables de entorno
-- Separación semántica a controladores
-- Certificado ssh 
-
-
+Created with ❤️ by [Devsoriano](https://github.com/devsoriano).
