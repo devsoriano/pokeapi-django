@@ -8,7 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
+# Hosts permitidos
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+if not DEBUG:
+    ALLOWED_HOSTS += ['18.208.163.231']  # Añade la IP pública de tu servidor EC2
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -27,7 +30,7 @@ INSTALLED_APPS = [
 
 # Middleware
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Debe ser el primer middleware para CORS
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,7 +51,7 @@ else:
     ]
     CORS_ALLOW_CREDENTIALS = True
 
-# Encabezados y métodos permitidos
+# Encabezados y métodos permitidos para CORS
 CORS_ALLOW_HEADERS = [
     'content-type',
     'authorization',
